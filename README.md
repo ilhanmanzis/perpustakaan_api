@@ -1,4 +1,5 @@
 hallo world, ini adalah project latihan saya membuat perpustakaan api menggunakan :
+- node js
 - express js
 - mysql
 - json web token
