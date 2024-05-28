@@ -7,7 +7,7 @@ untuk menjalankanya ikuti langkah berikut :
 - copy file ".env.example" menjadi ".env"
 - isi semua yang ada di dalam file .env
 - kemudian ketikan perintah berikut
-  #npm install
+- #npm install
 - untuk menjalankanya menggunakan perintah berikut
   1. untuk production
   # npm start
