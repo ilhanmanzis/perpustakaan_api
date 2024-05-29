@@ -71,7 +71,8 @@ peminjaman.belongsTo(petugas,{
     foreignKey:"id_petugas"
 });
 peminjaman.belongsTo(mahasiswa,{
-    foreignKey:"nim"
+    foreignKey: 'nim', 
+    targetKey: 'nim' 
 });
 peminjaman.belongsTo(buku,{
     foreignKey:"id_buku"

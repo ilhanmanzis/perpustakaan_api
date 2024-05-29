@@ -2,7 +2,7 @@ import peminjaman from "../../models/peminjamanModel.js";
 import petugas from "../../models/PetugasModel.js";
 import buku from "../../models/bukuModel.js";
 import mahasiswa from "../../models/mahasiswaModel.js";
-import  { parseISO, isValid, addDays } from "date-fns";
+import  { parseISO, isValid, addDays, format } from "date-fns";
 import { nanoid } from "nanoid";
 
 const createPeminjaman = async(req,res)=>{
@@ -36,6 +36,10 @@ const createPeminjaman = async(req,res)=>{
     // validasi jumlah hari
     if(jumlahHari===null || jumlahHari===undefined || jumlahHari==="") return res.status(400).json({
         message:"jumlah hari is required"
+    });
+
+    if(isNaN(jumlahHari)) return res.status(400).json({
+        message:"jumlah hari is Integer"
     });
 
     // mencari data petugas
@@ -80,7 +84,8 @@ const createPeminjaman = async(req,res)=>{
     }
 
     // hitung batas pengembalian
-    const batasPengembalian = addDays(tanggal, jumlahHari);
+    const jumlahHariInt = parseInt(jumlahHari, 10);
+    const batasPengembalian = addDays(tanggal, jumlahHariInt);
 
     // Format tanggal
     const formattedTanggalPinjam = format(tanggal, 'yyyy-MM-dd');

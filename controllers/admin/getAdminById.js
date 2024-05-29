@@ -5,7 +5,8 @@ const getAdminById = async(req,res)=>{
         const data = await admin.findOne({
             where:{
                 id_admin:req.params.id
-            }
+            },
+            attributes:['id_admin', 'username', 'email']
         });
 
         if(!data) return res.status(404).json({
