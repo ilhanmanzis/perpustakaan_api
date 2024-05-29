@@ -21,6 +21,11 @@ const getStatusPinjam = async(req,res)=>{
                 },
                 {
                     model:buku,
+                    as:'Bukus',
+                    through:{
+                        model:peminjamanBuku,
+                        attributes:[]
+                    },
                     include:[
                         {
                             model:rak

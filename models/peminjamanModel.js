@@ -3,6 +3,7 @@ import db from "../config/Database.js";
 import petugas from "./PetugasModel.js";
 import buku from "./bukuModel.js";
 import mahasiswa from "./mahasiswaModel.js";
+import peminjamanBuku from "./peminjamanBuku.js";
 
 const {DataTypes} = Sequelize;
 
@@ -27,14 +28,7 @@ const peminjaman = db.define('peminjaman',{
             key:"nim"
         }
     },
-    id_buku:{
-        type:DataTypes.STRING,
-        allowNull:false,
-        references:{
-            model:buku,
-            key:"id_buku"
-        }
-    },
+
     tanggal_pinjam:{
         type:DataTypes.STRING,
         allowNull:false
@@ -74,8 +68,11 @@ peminjaman.belongsTo(mahasiswa,{
     foreignKey: 'nim', 
     targetKey: 'nim' 
 });
-peminjaman.belongsTo(buku,{
-    foreignKey:"id_buku"
+peminjaman.belongsToMany(buku,{
+    through:peminjamanBuku,
+    foreignKey:"id_peminjaman",
+    otherKey:'id_buku',
+    as:'Bukus'
 });
 
 export default peminjaman;

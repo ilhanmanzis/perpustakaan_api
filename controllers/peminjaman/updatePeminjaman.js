@@ -2,6 +2,7 @@ import peminjaman from "../../models/peminjamanModel.js";
 import petugas from "../../models/PetugasModel.js";
 import buku from "../../models/bukuModel.js";
 import mahasiswa from "../../models/mahasiswaModel.js";
+import peminjamanBuku from "../../models/peminjamanBuku.js";
 import  { parseISO, isValid, addDays, format } from "date-fns";
 
 const updatePeminjaman = async(req,res)=>{
@@ -36,7 +37,7 @@ const updatePeminjaman = async(req,res)=>{
 
     
     // validasi id buku
-    if(idBuku===null || idBuku===undefined || idBuku==="") return res.status(400).json({
+    if(!Array.isArray(idBuku) || idBuku.length===0) return res.status(400).json({
         message:"id Buku is required"
     });
 
@@ -77,15 +78,14 @@ const updatePeminjaman = async(req,res)=>{
     });
 
     // mencari data buku
-    const dataBuku = await buku.findOne({
+    const dataBuku = await buku.findAll({
         where:{
             id_buku:idBuku
         }
     });
 
-    if(!dataBuku) return res.status(404).json({
-        message:"data buku not found"
-    });
+    if (dataBuku.length !== idBuku.length) return res.status(404).json({ message: "one or more buku not found" });
+
 
      // membuat date peminjaman
      const tanggal = parseISO(tanggalPinjam);
@@ -105,24 +105,33 @@ const updatePeminjaman = async(req,res)=>{
 
     //  update data peminjaman ke server
      try {
-        await peminjaman.update({
+        await dataPeminjaman.update({
             id_petugas:idPetugas,
             nim:nim,
-            id_buku:idBuku,
             tanggal_pinjam:formattedTanggalPinjam,
             jumlah_hari:jumlahHari,
             batas_pengembalian:formattedBatasPengembalian,
             keterangan:keterangan,
-        },{
-            where:{
-                id_peminjaman:id
-            }
         });
+
+        
+        // Hapus buku yang terkait dengan peminjaman ini
+        await PeminjamanBuku.destroy({ 
+            where: { 
+                id_peminjaman: id 
+            } 
+        });
+
+        // Tambahkan buku yang baru ke peminjaman
+        await dataPeminjaman.addBukus(dataBukus);
+
+
         res.status(201).json({
             message:"peminjaman successfuly updated"
         });
      } catch (error) {
         console.log(error.message);
+        res.status(500).json({ message: "internal server error" });
      }
 };
 

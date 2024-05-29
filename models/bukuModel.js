@@ -2,6 +2,8 @@ import { Sequelize } from "sequelize";
 import db from "../config/Database.js";
 import rak from "./rakModel.js";
 import kategori from "./kategoriModel.js";
+import peminjamanBuku from "./peminjamanBuku.js";
+import peminjaman from "./peminjamanModel.js";
 
 const {DataTypes} = Sequelize;
 
@@ -73,6 +75,13 @@ buku.belongsTo(kategori, {
 buku.belongsTo(rak,{
     foreignKey:"id_rak"
 });
+
+buku.belongsToMany(peminjaman,{
+    through:peminjamanBuku,
+    primaryKey:'id_buku',
+    otherKey:'id_peminjaman',
+    as: 'peminjamans'
+})
 
 export default buku;
 
