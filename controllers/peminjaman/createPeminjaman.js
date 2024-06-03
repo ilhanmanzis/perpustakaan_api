@@ -35,7 +35,7 @@ const createPeminjaman = async(req,res)=>{
     });
 
     // validasi jumlah hari
-    if(jumlahHari===null || jumlahHari===undefined || jumlahHari.trim()==="") return res.status(400).json({
+    if(jumlahHari===null || jumlahHari===undefined || jumlahHari==="") return res.status(400).json({
         message:"jumlah hari is required"
     });
 

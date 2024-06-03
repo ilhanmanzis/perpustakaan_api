@@ -1,9 +1,7 @@
 import { Sequelize } from "sequelize";
 import db from "../config/Database.js";
 import petugas from "./PetugasModel.js";
-import buku from "./bukuModel.js";
 import mahasiswa from "./mahasiswaModel.js";
-import peminjamanBuku from "./peminjamanBuku.js";
 
 const {DataTypes} = Sequelize;
 
@@ -68,12 +66,7 @@ peminjaman.belongsTo(mahasiswa,{
     foreignKey: 'nim', 
     targetKey: 'nim' 
 });
-peminjaman.belongsToMany(buku,{
-    through:peminjamanBuku,
-    foreignKey:"id_peminjaman",
-    otherKey:'id_buku',
-    as:'Bukus'
-});
+
 
 export default peminjaman;
 

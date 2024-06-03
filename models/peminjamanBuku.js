@@ -1,5 +1,8 @@
 import { Sequelize } from "sequelize";
 import db from "../config/Database.js";
+import buku from "./bukuModel.js";
+import peminjaman from "./peminjamanModel.js";
+
 
 const {DataTypes} = Sequelize;
 
@@ -25,6 +28,19 @@ const peminjamanBuku = db.define('peminjaman_buku', {
     timestamps:false
 });
 
+buku.belongsToMany(peminjaman,{
+    through:peminjamanBuku,
+    primaryKey:'id_buku',
+    otherKey:'id_peminjaman',
+    as: 'peminjamans'
+})
+
+peminjaman.belongsToMany(buku,{
+    through: peminjamanBuku,
+    foreignKey: "id_peminjaman",
+    otherKey:'id_buku',
+    as:'Bukus'
+});
 export default peminjamanBuku;
 
 (async()=>{
