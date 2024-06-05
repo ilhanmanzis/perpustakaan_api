@@ -17,7 +17,9 @@ const rak = db.define('rak',{
         allowNull:false
     },
 },{
-    freezeTableName:true
+    tableName:"rak",
+    freezeTableName:true,
+    underscored:true
 });
 
 export default rak;

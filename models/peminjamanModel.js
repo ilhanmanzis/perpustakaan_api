@@ -2,6 +2,7 @@ import { Sequelize } from "sequelize";
 import db from "../config/Database.js";
 import petugas from "./PetugasModel.js";
 import mahasiswa from "./mahasiswaModel.js";
+import buku from "./bukuModel.js";
 
 const {DataTypes} = Sequelize;
 
@@ -10,23 +11,6 @@ const peminjaman = db.define('peminjaman',{
         type:DataTypes.STRING,
         primaryKey:true
     },
-    id_petugas:{
-        type:DataTypes.STRING,
-        allowNull:false,
-        references:{
-            model: petugas,
-            key:"id_petugas"
-        }
-    },
-    nim:{
-        type:DataTypes.INTEGER,
-        allowNull:false,
-        references:{
-            model:mahasiswa,
-            key:"nim"
-        }
-    },
-
     tanggal_pinjam:{
         type:DataTypes.STRING,
         allowNull:false
@@ -59,14 +43,52 @@ const peminjaman = db.define('peminjaman',{
     freezeTableName:true
 });
 
-peminjaman.belongsTo(petugas,{
-    foreignKey:"id_petugas"
-});
-peminjaman.belongsTo(mahasiswa,{
-    foreignKey: 'nim', 
-    targetKey: 'nim' 
+
+// relasi one to many petugas dan peminjaman
+
+petugas.hasMany(peminjaman,{
+    foreignKey: "id_petugas",
+    onDelete: "RESTRICT",
+    onUpdate: "RESTRICT"
 });
 
+peminjaman.belongsTo(petugas,{
+    foreignKey:"id_petugas",
+    onDelete: "RESTRICT",
+    onUpdate: "RESTRICT"
+});
+
+// relasi one to many mahasiswa dan peminjaman
+
+mahasiswa.hasMany(peminjaman,{
+    foreignKey: "nim",
+    onDelete: "RESTRICT",
+    onUpdate: "RESTRICT"
+});
+
+peminjaman.belongsTo(mahasiswa,{
+    foreignKey: 'nim', 
+    targetKey: 'nim' ,
+    onDelete: "RESTRICT",
+    onUpdate: "RESTRICT"
+});
+
+
+// relasi many to many buku dan peminjaman
+
+buku.belongsToMany(peminjaman,{
+    through: "peminjaman_buku",
+    primaryKey:'id_buku',
+    otherKey:'id_peminjaman',
+    as: 'peminjamans'
+})
+
+peminjaman.belongsToMany(buku,{
+    through: "peminjaman_buku",
+    foreignKey: "id_peminjaman",
+    otherKey:'id_buku',
+    as:'Bukus'
+});
 
 export default peminjaman;
 

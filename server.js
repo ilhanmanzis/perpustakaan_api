@@ -7,7 +7,6 @@ import cors from "cors";
 import fileUpload from "express-fileupload";
 import petugasRouter from "./routers/petugasRouter.js";
 import adminRouter from "./routers/adminRouter.js"
-import createTable from "./config/createTable.js";
 import rakRouter from "./routers/rakRouter.js";
 import kategoriRouter from "./routers/kategoriRouter.js"
 import mahasiswaRouter from "./routers/mahasiswaRouter.js"
@@ -33,7 +32,7 @@ const protocol = 'http';
 const ip = getLocalIpAddress();
 
 
-createTable();
+
 // test database
 try {
     await db.authenticate();

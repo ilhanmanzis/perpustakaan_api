@@ -13,7 +13,9 @@ const kategori = db.define('kategori',{
         allowNull:false
     },
 },{
-    freezeTableName:true
+    tableName:"kategori",
+    freezeTableName:true,
+    underscored:true
 });
 
 export default kategori;

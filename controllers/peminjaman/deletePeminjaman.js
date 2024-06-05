@@ -1,5 +1,5 @@
 import peminjaman from "../../models/peminjamanModel.js";
-import peminjamanBuku from "../../models/peminjamanBuku.js";
+
 
 const deletePeminjaman = async(req,res)=>{
     const {id} = req.params;

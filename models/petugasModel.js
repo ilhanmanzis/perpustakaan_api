@@ -33,7 +33,9 @@ const petugas = db.define('petugas',{
         allowNull:true
     },
 },{
-    freezeTableName:true
+    tableName:"petugas",
+    freezeTableName:true,
+    underscored:true
 });
 
 export default petugas;

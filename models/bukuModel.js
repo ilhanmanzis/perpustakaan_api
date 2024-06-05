@@ -11,22 +11,7 @@ const buku = db.define('buku',{
         type:DataTypes.STRING,
         primaryKey:true
     },
-    id_rak:{
-        type:DataTypes.STRING,
-        allowNull:false,
-        references:{
-            model: rak,
-            key: "id_rak"
-        }
-    },
-    id_kategori:{
-        type:DataTypes.STRING,
-        allowNull:false,
-        references:{
-            model:kategori,
-            key:"id_kategori"
-        }
-    },
+
     isbn:{
         type:DataTypes.STRING,
         allowNull:false
@@ -64,16 +49,42 @@ const buku = db.define('buku',{
         allowNull:true
     },
 },{
-    freezeTableName:true
+    tableName:"buku",
+    freezeTableName:true,
+    underscored:true
 });
 
-buku.belongsTo(kategori, {
-    foreignKey: "id_kategori"
+
+// relasi one to many buku dan rak
+
+rak.hasMany(buku,{
+    foreignKey: "id_rak",
+    onDelete: "RESTRICT",
+    onUpdate: "RESTRICT"
 });
 
 buku.belongsTo(rak,{
-    foreignKey:"id_rak"
+    foreignKey:"id_rak",
+    onDelete: "RESTRICT",
+    onUpdate: "RESTRICT"
 });
+
+// relasi one to many buku dan kategori
+
+kategori.hasMany(buku,{
+    foreignKey: "id_kategori",
+    onDelete: "RESTRICT",
+    onUpdate: "RESTRICT"
+});
+
+
+buku.belongsTo(kategori, {
+    foreignKey: "id_kategori",
+    onDelete: "RESTRICT",
+    onUpdate: "RESTRICT"
+});
+
+
 
 
 

@@ -2,7 +2,7 @@ import peminjaman from "../../models/peminjamanModel.js";
 import petugas from "../../models/PetugasModel.js";
 import buku from "../../models/bukuModel.js";
 import mahasiswa from "../../models/mahasiswaModel.js";
-import peminjamanBuku from "../../models/peminjamanBuku.js";
+
 import  { parseISO, isValid, addDays, format } from "date-fns";
 
 const updatePeminjaman = async(req,res)=>{

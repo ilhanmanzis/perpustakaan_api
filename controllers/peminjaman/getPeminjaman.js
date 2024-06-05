@@ -4,7 +4,7 @@ import kategori from "../../models/kategoriModel.js";
 import mahasiswa from "../../models/mahasiswaModel.js";
 import peminjaman from "../../models/peminjamanModel.js";
 import rak from "../../models/rakModel.js";
-import peminjamanBuku from "../../models/peminjamanBuku.js";
+
 
 const getPeminjaman = async(req,res)=>{
     try {

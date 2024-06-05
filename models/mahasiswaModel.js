@@ -54,7 +54,9 @@ const mahasiswa = db.define('mahasiswa',{
         allowNull:true
     }
 },{
-    freezeTableName:true
+    tableName:"mahasiswa",
+    freezeTableName:true,
+    underscored:true
 });
 
 export default mahasiswa;

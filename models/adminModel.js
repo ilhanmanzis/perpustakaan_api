@@ -25,7 +25,9 @@ const admin = db.define('admin',{
         allowNull:true
     },
 },{
-    freezeTableName:true
+    tableName:"admin",
+    freezeTableName:true,
+    underscored:true
 });
 
 export default admin;
