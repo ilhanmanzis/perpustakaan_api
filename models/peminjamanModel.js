@@ -80,14 +80,18 @@ buku.belongsToMany(peminjaman,{
     through: "peminjaman_buku",
     primaryKey:'id_buku',
     otherKey:'id_peminjaman',
-    as: 'peminjamans'
+    as: 'peminjamans',
+    onDelete: "CASCADE",  // Menambahkan opsi cascade pada delete
+    onUpdate: "CASCADE"   // Menambahkan opsi cascade pada update
 })
 
 peminjaman.belongsToMany(buku,{
     through: "peminjaman_buku",
     foreignKey: "id_peminjaman",
     otherKey:'id_buku',
-    as:'Bukus'
+    as:'Bukus',
+    onDelete: "CASCADE",  // Menambahkan opsi cascade pada delete
+    onUpdate: "CASCADE"   // Menambahkan opsi cascade pada update
 });
 
 export default peminjaman;

@@ -3,6 +3,8 @@ import petugas from "../../models/PetugasModel.js";
 import buku from "../../models/bukuModel.js";
 import mahasiswa from "../../models/mahasiswaModel.js";
 
+
+
 import  { parseISO, isValid, addDays, format } from "date-fns";
 import { nanoid } from "nanoid";
 
@@ -15,7 +17,7 @@ const createPeminjaman = async(req,res)=>{
     });
 
     // validasi nim
-    if(nim===null || nim===undefined || nim.trim()==="") return res.status(400).json({
+    if(nim===null || nim===undefined || nim==="") return res.status(400).json({
         message:"nim is required"
     });
 
@@ -109,7 +111,14 @@ const createPeminjaman = async(req,res)=>{
             keterangan:keterangan,
         });
 
-        await newPeminjaman.addBukus(newPeminjaman);
+        // for(let buku of id_buku){
+        //     await peminjamanBukuModel.create({
+        //     id_peminjaman:id_peminjaman,
+        //     id_buku:buku
+        //     });
+        // }
+
+        await newPeminjaman.addBukus(dataBuku);
 
         res.status(201).json({
             message:"peminjaman successfuly created"

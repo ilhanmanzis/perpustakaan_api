@@ -44,12 +44,12 @@ const createBuku = async(req,res)=>{
     });
 
     // validasi image foto sampul
-    if(req.files.fotoSampul===null) return res.status(400).json({
+    if(!req.files.fotoSampul) return res.status(400).json({
         message:"no file foto sampul upload"
     });
 
     // validasi image foto Lampiran
-    if(req.files.fotoLampiran===null) return res.status(400).json({
+    if(!req.files.fotoLampiran) return res.status(400).json({
         message:"no file foto lampiran upload"
     });
 

@@ -51,7 +51,7 @@ const createMahasiswa = async(req,res)=>{
     });
 
      // validasi image
-     if(req.files===null) return res.status(400).json({
+     if(!req.files || !req.files.image) return res.status(400).json({
         message:"no file upload"
     });
 
@@ -68,8 +68,9 @@ const createMahasiswa = async(req,res)=>{
 
     // membuat id
     const id = nanoid(16);
+  
 
-    try {
+    try {  
         const image = await uploadImage(req.files.image, 'mahasiswa', req);
         await mahasiswa.create({
             id_mahasiswa:id,
@@ -91,6 +92,7 @@ const createMahasiswa = async(req,res)=>{
         });
     } catch (error) {
         console.log(error.message);
+        res.status(500);
     }
     
 

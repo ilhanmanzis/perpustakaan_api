@@ -116,14 +116,10 @@ const updatePeminjaman = async(req,res)=>{
 
         
         // Hapus buku yang terkait dengan peminjaman ini
-        await PeminjamanBuku.destroy({ 
-            where: { 
-                id_peminjaman: id 
-            } 
-        });
+        await dataPeminjaman.removeBukus(dataPeminjaman.Bukus);
 
         // Tambahkan buku yang baru ke peminjaman
-        await dataPeminjaman.addBukus(dataBukus);
+        await dataPeminjaman.setBukus(dataBuku);
 
 
         res.status(201).json({

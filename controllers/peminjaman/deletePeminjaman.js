@@ -15,13 +15,6 @@ const deletePeminjaman = async(req,res)=>{
     });
 
     try {
-        // Hapus hubungan peminjaman dengan buku dari tabel penghubung
-        await peminjamanBuku.destroy({
-            where:{
-                id_peminjaman:id
-            }
-        });
-
         // menghapus data peminjaman
         await peminjaman.destroy({
             where:{

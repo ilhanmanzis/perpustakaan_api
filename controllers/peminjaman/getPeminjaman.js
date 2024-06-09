@@ -21,7 +21,6 @@ const getPeminjaman = async(req,res)=>{
                     model:buku,
                     as:'Bukus',
                     through:{
-                        model:peminjamanBuku,
                         attributes:[]
                     },
                     include:[
