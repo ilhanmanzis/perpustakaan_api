@@ -10,15 +10,16 @@ saya akan terus mengupdate project latihan saya ini, dengan tujuan belajar dan m
 
 untuk menjalankanya ikuti langkah berikut :
 - copy file ".env.example" menjadi ".env"
+  ```
+  cp .env.example .env
 - isi semua yang ada di dalam file .env
 - kemudian ketikan perintah berikut
-  # npm install
+  ```
+  npm install
 - untuk menjalankanya menggunakan perintah berikut
   1. untuk production
-  # npm start
-  2. untuk development
-  # npm run dev
-
-
-
-
+     ```
+     npm start
+  3. untuk development
+     ```
+     npm run dev
