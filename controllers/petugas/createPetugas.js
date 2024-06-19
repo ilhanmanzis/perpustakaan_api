@@ -17,6 +17,10 @@ const createPetugas = async(req,res)=>{
         message:"username is required"
     });
 
+    if(username.toLowerCase()=='admin') return res.status(400).json({
+        message:"the username cannot be admin"
+    });
+
     // validasi email
     if(email===null || email===undefined || email==="") return res.status(400).json({
         message:"email is required"
@@ -67,13 +71,17 @@ const createPetugas = async(req,res)=>{
             username:username,
             email:email,
             password:hashPassword,
-            image:image
+            image:image,
+            role:'petugas'
         });
         res.status(201).json({
             message:"petugas successfuly created"
         })
     } catch (error) {
         console.log(error.message);
+        res.status(500).json({
+            message:"Internal server error"
+        })
     }
 
 }

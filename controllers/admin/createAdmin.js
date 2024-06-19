@@ -1,12 +1,17 @@
-import admin from "../../models/adminModel.js";
+
+import petugas from "../../models/PetugasModel.js";
 import bcrypt from "bcrypt";
 import { nanoid } from "nanoid";
 
 const createAdmin = async(req,res)=>{
     
     // cek apakah admin sudah ada atau belum
-    const data = await admin.findAll();
-    if(data.length>0) return res.status(400).json({
+    const data = await petugas.findOne({
+        where:{
+            role:'admin'
+        }
+    })
+    if(data) return res.status(400).json({
         message:"Admin data already exists"
     });
 
@@ -40,17 +45,23 @@ const createAdmin = async(req,res)=>{
 
     // membuat akun admin
     try {
-        await admin.create({
-            id_admin:id,
+        await petugas.create({
+             id_petugas:id,
+            name:'admin',
             username:username,
             email:email,
-            password:hashPassword
+            password:hashPassword,
+            image:null,
+            role:'admin'
         });
         res.status(201).json({
             message:"admin successfuly created"
         });
     } catch (error) {
         console.log(error.message);
+        res.status(500).json({
+            message:"Internal server error"
+        })
     }
 
 

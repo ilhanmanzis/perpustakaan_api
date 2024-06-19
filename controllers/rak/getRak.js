@@ -5,7 +5,10 @@ const getRak = async(req,res)=>{
         const response = await rak.findAll();
         res.status(200).json(response);
     } catch (error) {
-        console.log(error.message)
+        console.log(error.message);
+        res.status(500).json({
+            message:"Internal server error"
+        })
     }
 };
 

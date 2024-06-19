@@ -13,7 +13,9 @@ const deletePetugas= async(req,res)=>{
         message:"Data not found"
     });
 
-    
+    if(response.role==='admin') return res.status(400).json({
+        message:"admin cannot be deleted"
+    })
     try {
         // menghapus file image di server
         await deleteImage(response.image, 'petugas');
@@ -30,6 +32,9 @@ const deletePetugas= async(req,res)=>{
         });
     } catch (error) {
         console.log(error.message);
+        res.status(500).json({
+            message:"Internal server error"
+        })
     }
 }
 

@@ -32,6 +32,10 @@ const petugas = db.define('petugas',{
         type:DataTypes.STRING,
         allowNull:true
     },
+    role:{
+        type:DataTypes.STRING,
+        allowNull:false
+    }
 },{
     tableName:"petugas",
     freezeTableName:true,

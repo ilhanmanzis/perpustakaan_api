@@ -65,10 +65,13 @@ const updatePasswordPetugas = async(req,res)=>{
             }
         });
         res.status(201).json({
-            message:"password petugas successfuly updated"
+            message:`password ${data.role} successfuly updated`
         });
     } catch (error) {
-        console.log(error.message)
+        console.log(error.message);
+        res.status(500).json({
+            message:"Internal server error"
+        })
     }
 }
 

@@ -33,7 +33,10 @@ const updateKategori = async(req,res)=>{
             message:"kategori successfuly updated"
         })
     } catch (error) {
-        console.log(error.message)
+        console.log(error.message);
+        res.status(500).json({
+            message:"Internal server error"
+        })
     }
 
 }

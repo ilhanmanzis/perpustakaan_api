@@ -13,6 +13,12 @@ const updatePetugas = async(req,res)=>{
         }
     });
 
+    if(response.role==='admin'){   
+        res.status(400).json({
+            message:"Admin data cannot be changed, except for the password"
+        })
+    }
+
     if(!response) return res.status(404).json({
         message:"Data not found"
     });
@@ -23,7 +29,7 @@ const updatePetugas = async(req,res)=>{
     if(name===null || name===undefined || name==="") return res.status(400).json({
         message:"Name is required"
     });
-
+    
     // validasi username
     if(username===null || username===undefined || username==="") return res.status(400).json({
         message:"username is required"
@@ -50,7 +56,7 @@ const updatePetugas = async(req,res)=>{
 
     if(req.files && req.files.image){
         // update foto petugas
-        url = await updateImage(req.files.image, 'mahasiswa', req, url);
+        url = await updateImage(req.files.image, 'petugas', req, url);
     }
 
      // update data petugas
@@ -69,7 +75,10 @@ const updatePetugas = async(req,res)=>{
              message:"petugas successfuly update"
          });
      } catch (error) {
-         console.log(error.message)
+         console.log(error.message);
+         res.status(500).json({
+            message:"Internal server error"
+        })
      }
 };
 
